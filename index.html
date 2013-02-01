@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Js Modules</title>
+</head>
+<body>
+	<div id="example1"></div>
+	<script src="js/Main.js"></script>
+        <script src="js/modules/Utils.js"></script>
+        <script src="js/modules/Events.js"></script>
+        <script src="js/modules/Example.js"></script>
+        <script>
+            var example = new Example('example1', {param: 'options'})
+            example.addEvent('complete', function(e) {
+                console.log('oncomplete removed', e);
+            });
+
+            example.removeEvent('complete');
+
+            example.addEvent('complete', function(e) {
+                e.target.el.innerHTML = JSON.stringify(e.data);
+                console.log('oncomplete added again', e, this);
+            });
+            example.load();
+        </script>
+</body>
+</html>
