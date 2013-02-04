@@ -5,11 +5,11 @@
 
 define('Events', {
     events: {},
-	addEvent: function(name, callback) {
+    addEvent: function(name, callback) {
         //console.log('addEvent', name, callback);
         if (!this.events[name]) { this.events[name] = []; }
         this.events[name].push(callback);
-	},
+    },
     removeEvent: function(name, callback) {
         //console.log('removeEvent', name, callback);
         if (this.events[name]) {
@@ -20,7 +20,7 @@ define('Events', {
             }
             else { delete this.events[name]; }
         }
-	},
+    },
     dispatchEvent: function(name, data) {
         //console.log('dispatchEvent', name, data, this.events[name]);
         if (this.events[name]) {

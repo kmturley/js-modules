@@ -5,24 +5,36 @@
 	<title>Js Modules</title>
 </head>
 <body>
-	<div id="example1"></div>
+	<div id="child1"></div>
 	<script src="js/Main.js"></script>
         <script src="js/modules/Utils.js"></script>
         <script src="js/modules/Events.js"></script>
-        <script src="js/modules/Example.js"></script>
+        <script src="js/modules/Parent.js"></script>
+        <script src="js/modules/Child.js"></script>
         <script>
-            var example = new Example('example1', {param: 'options'})
-            example.addEvent('complete', function(e) {
-                console.log('oncomplete removed', e);
+            var child = new Child('child1', { param: 'childoptions' });
+            
+            // listen to an event
+            child.addEvent('complete', function(e) {
+                console.log('complete removed', e);
             });
-
-            example.removeEvent('complete');
-
-            example.addEvent('complete', function(e) {
+            
+            // remove all complete events
+            child.removeEvent('complete');
+            
+            // listen to an event again
+            child.addEvent('complete', function(e) {
                 e.target.el.innerHTML = JSON.stringify(e.data);
-                console.log('oncomplete added again', e, this);
+                console.log('complete added again', e);
             });
-            example.load();
+        
+            // listen to the same event from another callback
+            child.addEvent('complete', function(e) {
+                console.log('added a second subscriber', e);
+            });
+        
+            // call the modules parent
+            child.parentFunction();
         </script>
 </body>
 </html>
